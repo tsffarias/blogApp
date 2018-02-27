@@ -3,6 +3,7 @@ var express           = require("express"),
     methodOverride    = require("method-override"),
     bodyParser        = require("body-parser"),
     mongoose          = require("mongoose"),
+    Blog              = require("./models/blog"),
     app               = express();
     
 // APP CONFIG    
@@ -12,18 +13,6 @@ app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressSanitizer());
 app.use(methodOverride("_method"));
-
-
-// SCHEMA SETUP
-var blogSchema = new mongoose.Schema({
-   title: String,
-   image: String,
-   body: String,
-   created: {type: Date, default: Date.now()}
-});   
-
-// model
-var Blog = mongoose.model("Blog", blogSchema); 
 
 app.get("/", function(req, res) {
    res.redirect("/blogs"); 
